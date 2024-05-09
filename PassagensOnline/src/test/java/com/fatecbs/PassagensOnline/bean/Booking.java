@@ -6,24 +6,24 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Booking {
-	private static Long Id;
-	public String Name;
-	public String email;
-	public String source;
-	public String destination;
-	public BigDecimal amount;
-	public LocalDate departureDate;
-	public LocalTime departureTime;
-	public LocalDate arrivalDate;
-	public LocalTime arrivalTime;
-	public Duration duration;
+	private static Long nextId = 1L;
+	private Long Id;
+	private String Name;
+	private String email;
+	private String source;
+	private String destination;
+	private BigDecimal amount;
+	private LocalDate departureDate;
+	private LocalTime departureTime;
+	private LocalDate arrivalDate;
+	private LocalTime arrivalTime;
+	private Duration duration;
 	
-	public Booking(String name, String email, String source, String destination, BigDecimal amount,
-			LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime,
-			Duration duration) {
+	public Booking(String source, String destination, BigDecimal amount,
+			LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime) {
 		super();
-		this.Name = name;
-		this.email = email;
+		this.Id = generateId();
+		
 		this.source = source;
 		this.destination = destination;
 		this.amount = amount;
@@ -31,7 +31,36 @@ public class Booking {
 		this.departureTime = departureTime;
 		this.arrivalDate = arrivalDate;
 		this.arrivalTime = arrivalTime;
-		this.duration = duration;
+	}
+	
+	public Booking(Long id) {}
+	
+	public Long generateId() {
+		return nextId++;
+	}
+	
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
+	}
+	
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSource() {
