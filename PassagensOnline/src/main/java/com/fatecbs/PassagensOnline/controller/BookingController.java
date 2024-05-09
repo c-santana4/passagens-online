@@ -3,7 +3,11 @@ package com.fatecbs.PassagensOnline.controller;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fatecbs.PassagensOnline.bean.Booking;
 import com.fatecbs.PassagensOnline.service.BookingService;
 
 @RestController
@@ -29,6 +33,7 @@ public class BookingController {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Booking> getBooking(@PathVariable("id") Long id) {
+		
 		Booking booking = service.find(id);
 		
 		if (booking != null) {
