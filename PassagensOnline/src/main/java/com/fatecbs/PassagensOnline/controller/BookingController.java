@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.fatecbs.PassagensOnline.bean.Booking;
+import com.fatecbs.PassagensOnline.model.Booking;
 import com.fatecbs.PassagensOnline.service.BookingService;
 
 @RestController

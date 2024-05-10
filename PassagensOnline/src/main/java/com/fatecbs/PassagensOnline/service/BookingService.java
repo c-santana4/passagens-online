@@ -1,14 +1,16 @@
 package com.fatecbs.PassagensOnline.service;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fatecbs.PassagensOnline.bean.Booking;
+import org.springframework.stereotype.Service;
 
+import com.fatecbs.PassagensOnline.model.Booking;
+
+@Service
 public class BookingService {
 	private static List<Booking> bookings = new ArrayList<>();
 	
@@ -35,12 +37,16 @@ public class BookingService {
 	public Booking find(Booking booking){
 		return bookings
 				.stream()
-				.filter(c -> c.equals(booking))
+				.filter(b -> b.equals(booking))
 				.findFirst().get();
 	}
 	
 	public Booking find(Long id) {
-		return find(new Booking(id));
+		Booking booking = bookings.stream().filter(b -> b.getId() == id).findFirst().get();
+		
+		if (booking == null) return new Booking(id);
+
+		return booking;
 	}
 	
 	public List<Booking> findAll() {

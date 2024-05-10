@@ -1,4 +1,4 @@
-package com.fatecbs.PassagensOnline.bean;
+package com.fatecbs.PassagensOnline.model;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -126,7 +126,4 @@ public class Booking {
 	public void setDuration(Duration duration) {
 		this.duration = duration;
 	}
-	
-	
-	
 }
