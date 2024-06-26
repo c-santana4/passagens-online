@@ -5,10 +5,15 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.fatecbs.PassagensOnline.dto.DurationDto;
+
+import jakarta.persistence.*;
+
+@Entity
 public class Booking {
 	private static Long nextId = 1L;
 	private Long Id;
-	private String Name;
+	private String Name;	
 	private String email;
 	private String source;
 	private String destination;
@@ -20,10 +25,9 @@ public class Booking {
 	private Duration duration;
 	
 	public Booking(String source, String destination, BigDecimal amount,
-			LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime) {
+			LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime, long duration) {
 		super();
 		this.Id = generateId();
-		
 		this.source = source;
 		this.destination = destination;
 		this.amount = amount;
@@ -31,6 +35,7 @@ public class Booking {
 		this.departureTime = departureTime;
 		this.arrivalDate = arrivalDate;
 		this.arrivalTime = arrivalTime;
+		this.duration = new DurationDto(duration).getDuration();
 	}
 	
 	public Booking(Long id) {}
@@ -123,6 +128,9 @@ public class Booking {
 		return duration;
 	}
 
+	public void setDuration(long duration) {
+		this.duration = new DurationDto(duration).getDuration();
+	}
 	public void setDuration(Duration duration) {
 		this.duration = duration;
 	}
