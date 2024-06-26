@@ -1,71 +1,56 @@
 package com.fatecbs.PassagensOnline.service;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.fatecbs.PassagensOnline.model.Booking;
+import com.fatecbs.PassagensOnline.repository.BookingRepository;
 
 @Service
-public class BookingService {
-	private static List<Booking> bookings = new ArrayList<>();
-	
-	private void test() {
-		Booking booking1 = new Booking("Santos", "Sao Paulo", BigDecimal.ONE, 
-				LocalDate.now(), LocalTime.now(), 
-				LocalDate.now().plusDays(1), LocalTime.now().plusHours(3));
-		
-		booking1.setName("Carlos Santana");
-		booking1.setEmail("carlos@teste.com");
-		
-		bookings.add(booking1);
-	}
-	
-	public BookingService() {
-		test();
-	}
-	
-	public void create(Booking booking) {
-		booking.setId(booking.generateId());
-		bookings.add(booking);
-	}
-	
-	public Booking find(Booking booking){
-		return bookings
-				.stream()
-				.filter(b -> b.equals(booking))
-				.findFirst().get();
-	}
-	
-	public Booking find(Long id) {
-		Booking booking = bookings.stream().filter(b -> b.getId() == id).findFirst().get();
-		
-		if (booking == null) return new Booking(id);
+public class BookingService implements IService<Booking> {
+	@Autowired
+    private BookingRepository repository;
 
-		return booking;
-	}
+	// private static List<Booking> bookings = new ArrayList<>();
+
+	@Override
+	public Booking create(Booking booking) {
+		if (booking.getArrivalDate().isBefore(booking.getDepartureDate())){
+			throw new IllegalArgumentException("Data de chegada não pode ser antes da data de partida");
+		}
+
+        return repository.save(booking);
+    }
+
+	@Override
+	public Booking findById(Long id) {
+        return repository.findById(id).orElseThrow();
+    }
 	
+	@Override
 	public List<Booking> findAll() {
-		return bookings;
-	}
+        return repository.findAll();
+    }
 	
-	public Boolean update(Booking booking) {
-		Booking _booking = this.find(booking);
-		if (_booking != null) {
-			
+	// @Override
+	// public Page<Booking> findAll(Pageable pageable) {
+	// 	return repository.findAll(pageable);
+	// }
+	
+	public boolean update(Booking booking) {
+        if (repository.existsById(booking.getId())) {
+			repository.save(booking);
 			return true;
 		}
 		return false;
 	}
 	
-	public Boolean delete(Long id) {
-		Booking _conta = this.find(id);
-		if (_conta != null) {
-			bookings.remove(_conta);
+	public boolean delete(Long id) {
+		if (repository.existsById(id)) {
+			repository.deleteById(id);
 			return true;
 		}
 		return false;
