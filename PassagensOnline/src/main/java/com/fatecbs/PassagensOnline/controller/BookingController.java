@@ -96,7 +96,7 @@ public class BookingController {
 		@ApiResponse(responseCode = "500",
 			description = "Erro interno"),
 	})
-	public ResponseEntity<Booking> put(@RequestBody BookingUpdateDto bookingUpdateDto, @RequestParam("id") Long id){
+	public ResponseEntity<Booking> put(@RequestBody BookingUpdateDto bookingUpdateDto, @PathVariable("id") Long id){
 		Booking booking = new Booking(id, bookingUpdateDto);
 
 		if (service.update(booking)) {
