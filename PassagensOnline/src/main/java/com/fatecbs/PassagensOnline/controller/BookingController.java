@@ -82,7 +82,7 @@ public class BookingController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PutMapping(value = "/{id}")
+	@PutMapping
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "200",
 			description = "Atualiza a passagenm com o id informado"),
