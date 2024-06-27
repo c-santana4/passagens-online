@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fatecbs.PassagensOnline.dto.BookingUpdateDto;
 import com.fatecbs.PassagensOnline.model.Booking;
 import com.fatecbs.PassagensOnline.service.BookingService;
 
@@ -95,12 +96,10 @@ public class BookingController {
 		@ApiResponse(responseCode = "500",
 			description = "Erro interno"),
 	})
-	public ResponseEntity<Booking> put(@RequestBody Booking booking, @RequestParam("id") Long id){
-		if(booking.getId() != id)
-		{
-			return ResponseEntity.badRequest().build();
-		}
-		if (service.update(id, booking)) {
+	public ResponseEntity<Booking> put(@RequestBody BookingUpdateDto bookingUpdateDto, @RequestParam("id") Long id){
+		Booking booking = new Booking(id, bookingUpdateDto);
+
+		if (service.update(booking)) {
 			return ResponseEntity.ok(booking);
 		}
 

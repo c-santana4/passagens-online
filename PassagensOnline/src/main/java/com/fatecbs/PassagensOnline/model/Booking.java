@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.fatecbs.PassagensOnline.dto.BookingUpdateDto;
 import com.fatecbs.PassagensOnline.dto.DurationDto;
 
 import jakarta.persistence.*;
@@ -18,7 +19,7 @@ public class Booking {
 	private Long Id;
 
 	@Column(name = "nm_user", nullable = false)
-	private String Name;
+	private String name;
 
 	@Column(name = "nm_email", nullable = false)
 	private String email;
@@ -46,11 +47,28 @@ public class Booking {
 	private Duration duration;
 
 	public Booking() {}
+
+	public Booking(Long id, BookingUpdateDto booking) {
+		super();
+		this.Id = id;
+		this.name = booking.getName();
+		this.email = booking.getEmail();
+		this.source = booking.getSource();
+		this.destination = booking.getDestination();
+		this.amount = booking.getAmount();
+		this.departureDate = booking.getDepartureDate();
+		this.departureTime = booking.getDepartureTime();
+		this.arrivalDate = booking.getArrivalDate();
+		this.arrivalTime = booking.getArrivalTime();
+		this.duration = booking.getDuration();
+	}
 	
-	public Booking(String source, String destination, BigDecimal amount,
+	public Booking(String name, String email, String source, String destination, BigDecimal amount,
 			LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime, long duration) {
 		super();
 		this.Id = generateId();
+		this.name = name;
+		this.email = email;
 		this.source = source;
 		this.destination = destination;
 		this.amount = amount;
@@ -76,11 +94,11 @@ public class Booking {
 	}
 	
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		name = name;
 	}
 
 	public String getEmail() {
