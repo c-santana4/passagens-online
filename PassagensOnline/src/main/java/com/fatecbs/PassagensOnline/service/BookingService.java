@@ -27,7 +27,7 @@ public class BookingService implements IService<Booking> {
 
 	@Override
 	public Booking findById(Long id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElse(null);
     }
 	
 	@Override

@@ -44,6 +44,8 @@ public class Booking {
 
 	@Column(name = "ds_duration", nullable = false)
 	private Duration duration;
+
+	public Booking() {}
 	
 	public Booking(String source, String destination, BigDecimal amount,
 			LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime, long duration) {
