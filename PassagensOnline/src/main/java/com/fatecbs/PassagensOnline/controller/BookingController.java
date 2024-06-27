@@ -82,7 +82,7 @@ public class BookingController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PutMapping
+	@PutMapping(value = "/{id}")
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "200",
 			description = "Atualiza a passagenm com o id informado"),
@@ -95,8 +95,12 @@ public class BookingController {
 		@ApiResponse(responseCode = "500",
 			description = "Erro interno"),
 	})
-	public ResponseEntity<Booking> put(@RequestBody Booking booking){
-		if (service.update(booking)) {
+	public ResponseEntity<Booking> put(@RequestBody Booking booking, @RequestParam("id") Long id){
+		if(booking.getId() != id)
+		{
+			return ResponseEntity.badRequest().build();
+		}
+		if (service.update(id, booking)) {
 			return ResponseEntity.ok(booking);
 		}
 

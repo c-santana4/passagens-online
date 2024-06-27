@@ -40,8 +40,8 @@ public class BookingService implements IService<Booking> {
 	// 	return repository.findAll(pageable);
 	// }
 	
-	public boolean update(Booking booking) {
-        if (repository.existsById(booking.getId())) {
+	public boolean update(Long id, Booking booking) {
+        if (repository.existsById(id)){
 			repository.save(booking);
 			return true;
 		}
