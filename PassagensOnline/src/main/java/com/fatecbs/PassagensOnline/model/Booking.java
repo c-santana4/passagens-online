@@ -10,18 +10,39 @@ import com.fatecbs.PassagensOnline.dto.DurationDto;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "tb_booking")
 public class Booking {
 	private static Long nextId = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	private String Name;	
+
+	@Column(name = "nm_user", nullable = false)
+	private String Name;
+
+	@Column(name = "nm_email", nullable = false)
 	private String email;
+
+	@Column(name = "nm_source", nullable = false)
 	private String source;
+
+	@Column(name = "nm_destination", nullable = false)
 	private String destination;
+
+	@Column(name = "vl_amount", nullable = false)
 	private BigDecimal amount;
+
+	@Column(name = "dt_departure", nullable = false)
 	private LocalDate departureDate;
+	@Column(name = "hr_departure", nullable = false)
 	private LocalTime departureTime;
+
+	@Column(name = "dt_arrival", nullable = false)
 	private LocalDate arrivalDate;
+	@Column(name = "hr_arrival", nullable = false)
 	private LocalTime arrivalTime;
+
+	@Column(name = "ds_duration", nullable = false)
 	private Duration duration;
 	
 	public Booking(String source, String destination, BigDecimal amount,
